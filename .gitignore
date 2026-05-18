@@ -1,0 +1,14 @@
+.env
+.env.local
+*.local
+node_modules/
+dist/
+target/
+/state/
+*.log
+.DS_Store
+services/orchestrator/src/gen/
+services/gateway/gen/
+services/gateway/bin/
+.idea/
+.vscode/

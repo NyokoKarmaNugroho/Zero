@@ -1,0 +1,16 @@
+[Unit]
+Description=Zero orchestrator worker
+After=zero-chain.service
+Requires=zero-chain.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/zero/services/orchestrator
+EnvironmentFile=/opt/zero/.env.local
+Environment=WORKER_LOOP=true
+ExecStart=/usr/bin/env pnpm run worker
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

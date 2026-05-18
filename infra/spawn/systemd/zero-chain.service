@@ -1,0 +1,14 @@
+[Unit]
+Description=Zero chain gRPC
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/zero
+EnvironmentFile=/opt/zero/.env.local
+ExecStart=/opt/zero/services/chain/target/release/zero-chain
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

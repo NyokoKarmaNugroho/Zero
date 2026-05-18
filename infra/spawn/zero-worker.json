@@ -1,0 +1,10 @@
+{
+  "name": "zero-bounty-worker",
+  "steps": ["github", "reuse-api-key", "build", "systemd"],
+  "setup": {
+    "synapse_rpc_url": "${SYNAPSE_RPC_URL}",
+    "solana_keypair_path": "/opt/zero/secrets/keypair.json",
+    "acedata_api_key": "${ACEDATA_API_KEY}",
+    "openrouter_api_key": "${OPENROUTER_API_KEY}"
+  }
+}

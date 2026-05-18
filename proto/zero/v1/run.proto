@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package zero.v1;
+
+import "zero/v1/common.proto";
+
+option go_package = "github.com/nyokokarmanugroho/zero/gen/go/zero/v1;zerov1";
+
+service ChainService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc EnsureAgentRegistered(EnsureAgentRegisteredRequest) returns (EnsureAgentRegisteredResponse);
+  rpc DiscoverSapAgents(DiscoverSapAgentsRequest) returns (DiscoverSapAgentsResponse);
+  rpc RunSentinelCheck(RunSentinelCheckRequest) returns (RunSentinelCheckResponse);
+  rpc CreateEscrow(CreateEscrowRequest) returns (CreateEscrowResponse);
+  rpc SettleEscrow(SettleEscrowRequest) returns (SettleEscrowResponse);
+  rpc GetRunStatus(GetRunStatusRequest) returns (GetRunStatusResponse);
+}
+
+message HealthRequest {}
+message HealthResponse {
+  string service = 1;
+  string version = 2;
+}
+
+message EnsureAgentRegisteredRequest {
+  string agent_name = 1;
+  string description = 2;
+}
+
+message EnsureAgentRegisteredResponse {
+  string agent_pubkey = 1;
+  bool already_registered = 2;
+  repeated TxProof registration_txs = 3;
+}
+
+message DiscoverSapAgentsRequest {
+  uint32 limit = 1;
+}
+
+message DiscoverSapAgentsResponse {
+  repeated AgentRef agents = 1;
+}
+
+message RunSentinelCheckRequest {
+  string task_id = 1;
+  string task_type = 2;
+  string query = 3;
+}
+
+message RunSentinelCheckResponse {
+  bool passed = 1;
+  uint32 score = 2;
+  string reason = 3;
+}
+
+message CreateEscrowRequest {
+  double amount_usdc = 1;
+  string task_id = 2;
+  string counterparty_pubkey = 3;
+}
+
+message CreateEscrowResponse {
+  string escrow_id = 1;
+  TxProof create_tx = 2;
+}
+
+message SettleEscrowRequest {
+  string escrow_id = 1;
+}
+
+message SettleEscrowResponse {
+  TxProof settle_tx = 1;
+}
+
+message GetRunStatusRequest {
+  string run_id = 1;
+}
+
+message GetRunStatusResponse {
+  string run_id = 1;
+  RunStatus status = 2;
+  PaymentRoute route = 3;
+  repeated TxProof txs = 4;
+  string error_message = 5;
+}

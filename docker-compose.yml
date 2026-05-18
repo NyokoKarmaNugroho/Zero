@@ -1,0 +1,22 @@
+services:
+  chain:
+    build:
+      context: .
+      dockerfile: services/chain/Dockerfile
+    ports:
+      - "50051:50051"
+    env_file:
+      - .env.local
+    environment:
+      - CHAIN_GRPC_ADDR=0.0.0.0:50051
+
+  orchestrator:
+    build:
+      context: .
+      dockerfile: services/orchestrator/Dockerfile
+    depends_on:
+      - chain
+    env_file:
+      - .env.local
+    environment:
+      - CHAIN_GRPC_ADDR=chain:50051

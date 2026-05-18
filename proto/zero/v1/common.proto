@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package zero.v1;
+
+option go_package = "github.com/nyokokarmanugroho/zero/gen/go/zero/v1;zerov1";
+
+enum PaymentRoute {
+  PAYMENT_ROUTE_UNSPECIFIED = 0;
+  PAYMENT_ROUTE_X402 = 1;
+  PAYMENT_ROUTE_ESCROW = 2;
+}
+
+enum RunStatus {
+  RUN_STATUS_UNSPECIFIED = 0;
+  RUN_STATUS_PENDING = 1;
+  RUN_STATUS_RUNNING = 2;
+  RUN_STATUS_SUCCEEDED = 3;
+  RUN_STATUS_FAILED = 4;
+}
+
+message AgentRef {
+  string pubkey = 1;
+  string name = 2;
+  string metadata_uri = 3;
+}
+
+message TxProof {
+  string signature = 1;
+  string explorer_url = 2;
+  string label = 3;
+}
